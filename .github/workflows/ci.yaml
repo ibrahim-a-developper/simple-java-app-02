@@ -1,8 +1,9 @@
 name: CI Java App1
 on:
-    push:
-        branches:
-            - "main"
+    schedule:
+        - cron: "*/1 * * * *"
+          
+           
 jobs:
     build:
         name: Build and Package Java App
