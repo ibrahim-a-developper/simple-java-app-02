@@ -1,4 +1,4 @@
-name: CI Java App
+name: CI Java App1
 on:
     push:
         branches:
