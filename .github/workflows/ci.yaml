@@ -1,20 +1,17 @@
-name: ci workflow
+name: CI Java App
 on:
-  pull_request:
-    branches:
-      - "main"
+    push:
+        branches:
+            - "main"
 jobs:
-  ci-workflow:
-    name: ci workflow
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v3
+    job-app:
+        name: Build and Package Java App
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
 
-      - name: build the app
-        run: "mvn clean package"
-        shell: bash
+            - name: Build and Package
+              run: mvn clean package
 
-      - name: test the app
-        run: "mvn test"
-        shell: bash
+   
