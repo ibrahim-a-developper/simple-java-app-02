@@ -37,7 +37,7 @@ jobs:
             - name: Configure Kubernetes Context
               run: aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name eks-cluster
             
-            - name: Deploy to Kubernetes
+            - name: Deploy to Kubernetesj
               run: kubectl apply -f ./k8s/deployment.yaml --context arn:aws:eks:${{ secrets.AWS_REGION }}:710271938611:cluster/eks-cluster
     
             - name: Verify Deployment
