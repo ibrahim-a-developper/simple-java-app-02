@@ -23,9 +23,9 @@ jobs:
             -   name: Build and push
                 uses: docker/build-push-action@v6
                 with:
-                  context: .
+                  
                   push: true
-                  tags: tourebrahim/java-app1:latest
+                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/java-app1:latest
             
             -   name: Configure AWS Credentials
                 uses: aws-actions/configure-aws-credentials@v1
@@ -34,11 +34,8 @@ jobs:
                     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                     aws-region: ${{ secrets.AWS_REGION }}
             
-            -   name: Deploy to K8s
-                run: aws eks update-kubeconfig ${{ secrets.AWS_REGION }} --name eks-cluster
-
-            -   name: Deploy to Kubernetes
-                run: kubectl apply -f ./k8s/deployment.yaml --context arn:aws:eks:${{ secrets.AWS_REGION }}:xxxxxxx:cluster/eks-cluster 
-        
-                    
-
+            - name: Deploy to Kubernetes
+              run: kubectl apply -f ./k8s/deployment.yaml --context arn:aws:eks:${{ secrets.AWS_REGION }}:710271938611:cluster/eks-cluster
+    
+            - name: Verify Deployment
+              run: kubectl rollout status deployment/java-app-deployment --context arn:aws:eks:${{ secrets.AWS_REGION }}:710271938611:cluster/eks-cluster
