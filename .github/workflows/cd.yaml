@@ -38,7 +38,7 @@ jobs:
               run: aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name eks-cluster
             
             - name: Deploy to Kubernetes
-              run: kubectl apply -f ./k8s/deployment.yaml 
+              run: kubectl apply -f ./k8s/deployment.yaml --context arn:aws:eks:${{ secrets.AWS_REGION }}:710271938611:cluster/eks-cluster
     
             - name: Verify Deployment
               run: kubectl rollout status deployment/java-app-deployment --context arn:aws:eks:${{ secrets.AWS_REGION }}:710271938611:cluster/eks-cluster
